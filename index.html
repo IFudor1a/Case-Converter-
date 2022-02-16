@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+      <div class = "title">Case Converter</div>
+      <textarea></textarea>
+      <div>
+      <button id="upper-case">Upper-case</button>
+      <button id="lower-case">Lower-case</button>
+      <button id="proper-case">Proper-case</button>
+      <button id="sentence-case">Sentence-case</button>
+          <button id="save-text-file">Save Text File</button>
+      </div>
+<script>
+    function download(filename, text) {
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+    document.getElementById("lower-case").addEventListener("click",() => {
+        let text = document.querySelector("textarea").value;
+        console.log(text);
+        let lower_text = text.toLowerCase();
+        document.querySelector("textarea").value = lower_text;
+    });
+    document.getElementById("upper-case").addEventListener("click",() => {
+        let text = document.querySelector("textarea").value;
+        console.log(text);
+        let upper_text = text.toUpperCase();
+        document.querySelector("textarea").value = upper_text;
+    });
+    document.getElementById("proper-case").addEventListener("click",() => {
+        let text = document.querySelector("textarea").value;
+        console.log(text);
+        let proper_text = text.split(' ');
+        proper_text = proper_text.map((word) => {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()})
+        console.log(proper_text)
+        document.querySelector("textarea").value = proper_text.join(' ');
+    });
+    document.getElementById("sentence-case").addEventListener("click",() => {
+        let text = document.querySelector("textarea").value;
+        console.log(text);
+        let proper_text = text.split('. ');
+        proper_text = proper_text.map((word) => {return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()})
+        console.log(proper_text)
+        document.querySelector("textarea").value = proper_text.join('. ');
+    });
+    document.getElementById("save-text-file").addEventListener("click",() => {
+        let text = document.querySelector("textarea").value;
+        let filename = "text.txt"
+        download(filename,text)
+    });
+
+</script>
+</body>
+</html>
